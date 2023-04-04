@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -35,19 +36,40 @@ namespace WpfTest
                 return;
 
             double newValue;
+            Color newColor;
             if (flag)
+            {
                 newValue = 400;
+                newColor = Colors.Purple;
+            }
             else
+            {
                 newValue = 200;
+                newColor = Colors.Pink;
+            }
 
             flag ^= true;
 
+            Expression<Func<object, object>> expr = str => int.Parse((string)str);
+
 
             var animator = element.FluentAnimator()
-                .AnimateTo(Canvas.LeftProperty, newValue, TimeSpan.FromMilliseconds(1000), new CircleEase() { EasingMode = EasingMode.EaseInOut })
+                .SubAnimator(animator => animator
+                    .AnimateTo(Canvas.LeftProperty, newValue)
+                    .AnimateTo(ele => ((SolidColorBrush)ele.Background).Color, newColor)
+                    .WithEasingFunction(new CircleEase() { EasingMode = EasingMode.EaseInOut }))
                 .Delay(TimeSpan.FromMilliseconds(200))
-                .AnimateTo(Canvas.TopProperty, newValue, TimeSpan.FromMilliseconds(1000), new BounceEase() { EasingMode = EasingMode.EaseOut })
+                .SubAnimator(animator => animator
+                    .AnimateTo(Canvas.TopProperty, newValue)
+                    .AnimateTo(ele => ((SolidColorBrush)ele.Background).Color, newColor)
+                    .WithEasingFunction(new BounceEase() { EasingMode = EasingMode.EaseOut }))
                 .WithDuration(TimeSpan.FromSeconds(1))
+                .Start();
+
+            var animator2 = element.FluentAnimator()
+                .AnimateWidthTo(100)
+                .AnimateHeightTo(200)
+                .WithDuration(200)
                 .Start();
         }
     }

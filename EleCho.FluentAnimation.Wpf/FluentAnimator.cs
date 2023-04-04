@@ -3,6 +3,7 @@ using System.Linq.Expressions;
 using System.Reflection;
 using System.Windows;
 using System.Windows.Media.Animation;
+using EleCho.FluentAnimation.Wpf.Utilities;
 
 namespace EleCho.FluentAnimation.Wpf;
 
@@ -17,8 +18,8 @@ public partial class FluentAnimator<TElement>
     public TElement Target { get; private set; }
     public Type TargetType { get; } = typeof(TElement);
 
-    public Storyboard Storyboard { get; } = new Storyboard();
 
+    public Storyboard Storyboard { get; } = new Storyboard();
 
     private TimeSpan BeginTimeOffset { get; set; } =
         TimeSpan.Zero;
@@ -72,23 +73,13 @@ public partial class FluentAnimator<TElement>
         if (propertyGetter.Body is not MemberExpression memberExpression)
             throw new ArgumentException("Expression must be a member expression", nameof(propertyGetter));
 
-        // 拿到成员类型
-        MemberInfo info =
-            memberExpression.Member;
-
-        // 查找定义类型
-        if (info.DeclaringType is not Type declaringType)
-            throw new InvalidOperationException("Cannot find declaring type of specified member");
-
-        // 依赖属性
-        DependencyPropertyDescriptor descriptor =
-            DependencyPropertyDescriptor.FromName(info.Name, info.DeclaringType, TargetType);
-
+        // 从表达式解析属性路径
+        PropertyPath propertyPath =
+            ExpressionUtils.ToPropertyPath(propertyGetter);
 
         // 获取时间线
         AnimationTimeline timeline =
             GetEasingTimeline(from, to, by, isAdditive, isCumulative, easingFunction, speedRatio, accelerationRatio, decelerationRatio, beginTime, duration, autoReverse, repeatBehavior, fillBehavior);
-
 
         // 动画偏移量机制
         if (timeline.BeginTime == null)
@@ -96,13 +87,14 @@ public partial class FluentAnimator<TElement>
         else
             timeline.BeginTime = timeline.BeginTime + BeginTimeOffset;
 
-
         // 目标属性
-        Storyboard.SetTargetProperty(timeline, new PropertyPath(info.Name));
+        Storyboard.SetTargetProperty(timeline, propertyPath);
         Storyboard.Children.Add(timeline);
 
         return this;
     }
+
+
 
     #region 基础重载
 
@@ -381,6 +373,27 @@ public partial class FluentAnimator<TElement>
     {
         foreach (var timeline in Storyboard.Children)
             timeline.Duration = beginTime;
+
+        return this;
+    }
+
+    public FluentAnimator<TElement> WithDuration(double durationInMilliseconds)
+    {
+        Duration duration = 
+            new Duration(TimeSpan.FromMilliseconds(durationInMilliseconds));
+
+        foreach (var timeline in Storyboard.Children)
+            timeline.Duration = duration;
+
+        return this;
+    }
+
+    public FluentAnimator<TElement> WithDuration(TimeSpan duration)
+    {
+        Duration _duration = new Duration(duration);
+
+        foreach (var timeline in Storyboard.Children)
+            timeline.Duration = _duration;
 
         return this;
     }
