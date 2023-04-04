@@ -27,23 +27,27 @@ namespace WpfTest
             InitializeComponent();
         }
 
+
+        bool flag;
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             if (sender is not Button element)
                 return;
 
             double newValue;
-            if (element.Width == 200)
+            if (flag)
                 newValue = 400;
             else
                 newValue = 200;
 
+            flag ^= true;
+
 
             var animator = element.FluentAnimator()
-                .AnimateTo(ele => ele.Width, newValue, TimeSpan.FromMilliseconds(100))
-                .Then()
-                .AnimateTo(ele => ele.Height, newValue, TimeSpan.FromMilliseconds(100))
-                .WithEasingFunction(new CircleEase() { EasingMode = EasingMode.EaseOut })
+                .AnimateTo(Canvas.LeftProperty, newValue, TimeSpan.FromMilliseconds(1000), new CircleEase() { EasingMode = EasingMode.EaseInOut })
+                .Delay(TimeSpan.FromMilliseconds(200))
+                .AnimateTo(Canvas.TopProperty, newValue, TimeSpan.FromMilliseconds(1000), new BounceEase() { EasingMode = EasingMode.EaseOut })
+                .WithDuration(TimeSpan.FromSeconds(1))
                 .Start();
         }
     }

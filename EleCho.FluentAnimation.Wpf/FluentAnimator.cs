@@ -35,7 +35,34 @@ public partial class FluentAnimator<TElement>
         public static implicit operator Option<T>(T value) => new Option<T>(true, value);
     }
 
-    private FluentAnimator<TElement> EasingAnimate<TProperty>(Expression<Func<TElement, TProperty>> propertyGetter,
+    private FluentAnimator<TElement> EasingAnimate<TProperty>(
+        DependencyProperty dependencyProperty,
+        Option<TProperty> from, Option<TProperty> to, Option<TProperty> by,
+        bool? isAdditive = null, bool? isCumulative = null, IEasingFunction? easingFunction = null,
+        double? speedRatio = null, double? accelerationRatio = null, double? decelerationRatio = null,
+        TimeSpan? beginTime = null, Duration? duration = null, bool? autoReverse = null,
+        RepeatBehavior? repeatBehavior = null, FillBehavior? fillBehavior = null)
+    {
+        // 获取时间线
+        AnimationTimeline timeline =
+            GetEasingTimeline(from, to, by, isAdditive, isCumulative, easingFunction, speedRatio, accelerationRatio, decelerationRatio, beginTime, duration, autoReverse, repeatBehavior, fillBehavior);
+
+
+        // 动画偏移量机制
+        if (timeline.BeginTime == null)
+            timeline.BeginTime = BeginTimeOffset;
+        else
+            timeline.BeginTime = timeline.BeginTime + BeginTimeOffset;
+
+        // 目标属性
+        Storyboard.SetTargetProperty(timeline, new PropertyPath($"({dependencyProperty.OwnerType.Name}.{dependencyProperty.Name})"));
+        Storyboard.Children.Add(timeline);
+
+        return this;
+    }
+
+    private FluentAnimator<TElement> EasingAnimate<TProperty>(
+        Expression<Func<TElement, TProperty>> propertyGetter,
         Option<TProperty> from, Option<TProperty> to, Option<TProperty> by,
         bool? isAdditive = null, bool? isCumulative = null, IEasingFunction? easingFunction = null,
         double? speedRatio = null, double? accelerationRatio = null, double? decelerationRatio = null,
@@ -78,6 +105,86 @@ public partial class FluentAnimator<TElement>
     }
 
     #region 基础重载
+
+
+    public FluentAnimator<TElement> AnimateBy<TProperty>(DependencyProperty dependencyProperty,
+        TProperty by, Duration duration, IEasingFunction easingFunction) =>
+        EasingAnimate(dependencyProperty, Option<TProperty>.None(), Option<TProperty>.None(), by,
+            duration: duration, easingFunction: easingFunction);
+
+    public FluentAnimator<TElement> AnimateTo<TProperty>(DependencyProperty dependencyProperty,
+        TProperty to, Duration duration, IEasingFunction easingFunction) =>
+        EasingAnimate(dependencyProperty, Option<TProperty>.None(), to, Option<TProperty>.None(),
+            duration: duration, easingFunction: easingFunction);
+
+    public FluentAnimator<TElement> AnimateFromTo<TProperty>(DependencyProperty dependencyProperty,
+        TProperty from, TProperty to, Duration duration, IEasingFunction easingFunction) =>
+        EasingAnimate(dependencyProperty, from, to, Option<TProperty>.None(),
+            duration: duration, easingFunction: easingFunction);
+
+    public FluentAnimator<TElement> AnimateFromBy<TProperty>(DependencyProperty dependencyProperty,
+        TProperty from, TProperty by, Duration duration, IEasingFunction easingFunction) =>
+        EasingAnimate(dependencyProperty, from, Option<TProperty>.None(), by,
+            duration: duration, easingFunction: easingFunction);
+
+    public FluentAnimator<TElement> Animate<TProperty>(DependencyProperty dependencyProperty,
+        TProperty from, TProperty to, Duration duration, IEasingFunction easingFunction) =>
+        EasingAnimate(dependencyProperty, from, to, Option<TProperty>.None(),
+            duration: duration, easingFunction: easingFunction);
+
+    public FluentAnimator<TElement> AnimateBy<TProperty>(DependencyProperty dependencyProperty,
+        TProperty by, Duration duration) =>
+        EasingAnimate(dependencyProperty, Option<TProperty>.None(), Option<TProperty>.None(), by,
+            duration: duration);
+
+    public FluentAnimator<TElement> AnimateTo<TProperty>(DependencyProperty dependencyProperty,
+        TProperty to, Duration duration) =>
+        EasingAnimate(dependencyProperty, Option<TProperty>.None(), to, Option<TProperty>.None(),
+            duration: duration);
+
+    public FluentAnimator<TElement> AnimateFromTo<TProperty>(DependencyProperty dependencyProperty,
+        TProperty from, TProperty to, Duration duration) =>
+        EasingAnimate(dependencyProperty, from, to, Option<TProperty>.None(),
+            duration: duration);
+
+    public FluentAnimator<TElement> AnimateFromBy<TProperty>(DependencyProperty dependencyProperty,
+        TProperty from, TProperty by, Duration duration) =>
+        EasingAnimate(dependencyProperty, from, Option<TProperty>.None(), by,
+            duration: duration);
+
+    public FluentAnimator<TElement> Animate<TProperty>(DependencyProperty dependencyProperty,
+        TProperty from, TProperty to, Duration duration) =>
+        EasingAnimate(dependencyProperty, from, to, Option<TProperty>.None(),
+            duration: duration);
+
+    public FluentAnimator<TElement> AnimateBy<TProperty>(DependencyProperty dependencyProperty,
+        TProperty by) =>
+        EasingAnimate(dependencyProperty, Option<TProperty>.None(), Option<TProperty>.None(), by);
+
+    public FluentAnimator<TElement> AnimateTo<TProperty>(DependencyProperty dependencyProperty,
+        TProperty to) =>
+        EasingAnimate(dependencyProperty, Option<TProperty>.None(), to, Option<TProperty>.None());
+
+    public FluentAnimator<TElement> AnimateFromTo<TProperty>(DependencyProperty dependencyProperty,
+        TProperty from, TProperty to) =>
+        EasingAnimate(dependencyProperty, from, to, Option<TProperty>.None());
+
+    public FluentAnimator<TElement> AnimateFromBy<TProperty>(DependencyProperty dependencyProperty,
+        TProperty from, TProperty by) =>
+        EasingAnimate(dependencyProperty, from, Option<TProperty>.None(), by);
+
+    public FluentAnimator<TElement> Animate<TProperty>(DependencyProperty dependencyProperty,
+        TProperty from, TProperty to) =>
+        EasingAnimate(dependencyProperty, from, to, Option<TProperty>.None());
+
+
+
+
+
+
+
+
+
 
     public FluentAnimator<TElement> AnimateBy<TProperty>(Expression<Func<TElement, TProperty>> propertyGetter,
         TProperty by, Duration duration, IEasingFunction easingFunction) =>
@@ -317,7 +424,7 @@ public partial class FluentAnimator<TElement>
         return this;
     }
 
-    public FluentAnimator<TElement> Then()
+    public FluentAnimator<TElement> Continue()
     {
         Timeline? lastTimeline =
             Storyboard.Children.LastOrDefault();

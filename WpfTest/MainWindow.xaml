@@ -7,6 +7,10 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-        <Button Width="200" Height="40" Content="Test" Click="Button_Click"/>
+        <Canvas>
+            <Button Name="button"
+                    Canvas.Left="100" Canvas.Top="100"
+                    Width="200" Height="40" Content="Test" Click="Button_Click"/>
+        </Canvas>
     </Grid>
 </Window>

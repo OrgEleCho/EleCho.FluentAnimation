@@ -16,6 +16,7 @@ public partial class FluentAnimator<TElement>
     {
         AnimationTimeline? timeline;
 
+
         if (typeof(Byte).IsAssignableFrom(typeof(TProperty)))
         {
             ByteAnimation animation =
@@ -411,9 +412,6 @@ public partial class FluentAnimator<TElement>
         {
             throw new ArgumentException("Cannot find AnimationTimeline for specified type", nameof(TProperty));
         }
-
-
-
 
 
         if (speedRatio is double _speedRatio)
