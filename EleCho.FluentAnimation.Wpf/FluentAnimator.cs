@@ -19,14 +19,24 @@ public partial class FluentAnimator<TElement>
     public Type TargetType { get; } = typeof(TElement);
 
 
-    public Storyboard Storyboard { get; } = new Storyboard();
+    private Storyboard Storyboard { get; } =
+        new Storyboard();
 
     private TimeSpan BeginTimeOffset { get; set; } =
         TimeSpan.Zero;
 
-    private IEasingFunction DefaultEasingFunction { get; set; } =
-        new CircleEase() { EasingMode = EasingMode.EaseOut };
+    public static Duration? DefaultDuration { get; private set; }
+    public static IEasingFunction? DefaultEasingFunction { get; private set; }
 
+    public static void SetDefaultDuration(Duration duration)
+    {
+        DefaultDuration = duration;
+    }
+
+    public static void SetDefaultEasingFunction(IEasingFunction easingFunction)
+    {
+        DefaultEasingFunction = easingFunction;
+    }
 
 
     private record struct Option<T>(bool HasValue, T? Value)
@@ -430,6 +440,13 @@ public partial class FluentAnimator<TElement>
         return this;
     }
 
+    public FluentAnimator<TElement> Delay(double durationInMilliseconds)
+    {
+        BeginTimeOffset += TimeSpan.FromMilliseconds(durationInMilliseconds);
+
+        return this;
+    }
+
     public FluentAnimator<TElement> Delay(TimeSpan duration)
     {
         BeginTimeOffset += duration;
@@ -437,7 +454,7 @@ public partial class FluentAnimator<TElement>
         return this;
     }
 
-    public FluentAnimator<TElement> Continue()
+    public FluentAnimator<TElement> Then()
     {
         Timeline? lastTimeline =
             Storyboard.Children.LastOrDefault();
@@ -491,8 +508,10 @@ public partial class FluentAnimator<TElement>
         return this;
     }
 
-    private void GetKeyFramesTimeline<TProperty>()
-    {
+    public Storyboard GetStoryboard() => Storyboard;
 
-    }
+    //private void GetKeyFramesTimeline<TProperty>()
+    //{
+
+    //}
 }

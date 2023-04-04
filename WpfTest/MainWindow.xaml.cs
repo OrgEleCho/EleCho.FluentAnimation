@@ -71,6 +71,12 @@ namespace WpfTest
                 .AnimateHeightTo(200)
                 .WithDuration(200)
                 .Start();
+
+            Storyboard myStoryboard = element.FluentAnimator()
+                .AnimateWidthTo(100)
+                .AnimateHeightTo(100)
+                .WithDuration(100)
+                .Storyboard;
         }
     }
 }

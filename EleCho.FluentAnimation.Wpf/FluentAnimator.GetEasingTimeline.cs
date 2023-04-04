@@ -31,7 +31,10 @@ public partial class FluentAnimator<TElement>
                 animation.By = _by;
 
             // defaults:
-            animation.EasingFunction = DefaultEasingFunction;
+            if (DefaultDuration is Duration defaultDuration)
+                animation.Duration = defaultDuration;
+            if (DefaultEasingFunction is IEasingFunction defaultEasingFunction)
+                animation.EasingFunction = defaultEasingFunction;
 
             if (isAdditive is bool _isAdditive)
                 animation.IsAdditive = _isAdditive;
@@ -54,7 +57,10 @@ public partial class FluentAnimator<TElement>
                 animation.By = _by;
 
             // defaults:
-            animation.EasingFunction = DefaultEasingFunction;
+            if (DefaultDuration is Duration defaultDuration)
+                animation.Duration = defaultDuration;
+            if (DefaultEasingFunction is IEasingFunction defaultEasingFunction)
+                animation.EasingFunction = defaultEasingFunction;
 
             if (isAdditive is bool _isAdditive)
                 animation.IsAdditive = _isAdditive;
@@ -77,7 +83,10 @@ public partial class FluentAnimator<TElement>
                 animation.By = _by;
 
             // defaults:
-            animation.EasingFunction = DefaultEasingFunction;
+            if (DefaultDuration is Duration defaultDuration)
+                animation.Duration = defaultDuration;
+            if (DefaultEasingFunction is IEasingFunction defaultEasingFunction)
+                animation.EasingFunction = defaultEasingFunction;
 
             if (isAdditive is bool _isAdditive)
                 animation.IsAdditive = _isAdditive;
@@ -100,7 +109,10 @@ public partial class FluentAnimator<TElement>
                 animation.By = _by;
 
             // defaults:
-            animation.EasingFunction = DefaultEasingFunction;
+            if (DefaultDuration is Duration defaultDuration)
+                animation.Duration = defaultDuration;
+            if (DefaultEasingFunction is IEasingFunction defaultEasingFunction)
+                animation.EasingFunction = defaultEasingFunction;
 
             if (isAdditive is bool _isAdditive)
                 animation.IsAdditive = _isAdditive;
@@ -123,7 +135,10 @@ public partial class FluentAnimator<TElement>
                 animation.By = _by;
 
             // defaults:
-            animation.EasingFunction = DefaultEasingFunction;
+            if (DefaultDuration is Duration defaultDuration)
+                animation.Duration = defaultDuration;
+            if (DefaultEasingFunction is IEasingFunction defaultEasingFunction)
+                animation.EasingFunction = defaultEasingFunction;
 
             if (isAdditive is bool _isAdditive)
                 animation.IsAdditive = _isAdditive;
@@ -146,7 +161,10 @@ public partial class FluentAnimator<TElement>
                 animation.By = _by;
 
             // defaults:
-            animation.EasingFunction = DefaultEasingFunction;
+            if (DefaultDuration is Duration defaultDuration)
+                animation.Duration = defaultDuration;
+            if (DefaultEasingFunction is IEasingFunction defaultEasingFunction)
+                animation.EasingFunction = defaultEasingFunction;
 
             if (isAdditive is bool _isAdditive)
                 animation.IsAdditive = _isAdditive;
@@ -169,7 +187,10 @@ public partial class FluentAnimator<TElement>
                 animation.By = _by;
 
             // defaults:
-            animation.EasingFunction = DefaultEasingFunction;
+            if (DefaultDuration is Duration defaultDuration)
+                animation.Duration = defaultDuration;
+            if (DefaultEasingFunction is IEasingFunction defaultEasingFunction)
+                animation.EasingFunction = defaultEasingFunction;
 
             if (isAdditive is bool _isAdditive)
                 animation.IsAdditive = _isAdditive;
@@ -192,7 +213,10 @@ public partial class FluentAnimator<TElement>
                 animation.By = _by;
 
             // defaults:
-            animation.EasingFunction = DefaultEasingFunction;
+            if (DefaultDuration is Duration defaultDuration)
+                animation.Duration = defaultDuration;
+            if (DefaultEasingFunction is IEasingFunction defaultEasingFunction)
+                animation.EasingFunction = defaultEasingFunction;
 
             if (isAdditive is bool _isAdditive)
                 animation.IsAdditive = _isAdditive;
@@ -215,7 +239,10 @@ public partial class FluentAnimator<TElement>
                 animation.By = _by;
 
             // defaults:
-            animation.EasingFunction = DefaultEasingFunction;
+            if (DefaultDuration is Duration defaultDuration)
+                animation.Duration = defaultDuration;
+            if (DefaultEasingFunction is IEasingFunction defaultEasingFunction)
+                animation.EasingFunction = defaultEasingFunction;
 
             if (isAdditive is bool _isAdditive)
                 animation.IsAdditive = _isAdditive;
@@ -238,7 +265,10 @@ public partial class FluentAnimator<TElement>
                 animation.By = _by;
 
             // defaults:
-            animation.EasingFunction = DefaultEasingFunction;
+            if (DefaultDuration is Duration defaultDuration)
+                animation.Duration = defaultDuration;
+            if (DefaultEasingFunction is IEasingFunction defaultEasingFunction)
+                animation.EasingFunction = defaultEasingFunction;
 
             if (isAdditive is bool _isAdditive)
                 animation.IsAdditive = _isAdditive;
@@ -261,7 +291,10 @@ public partial class FluentAnimator<TElement>
                 animation.By = _by;
 
             // defaults:
-            animation.EasingFunction = DefaultEasingFunction;
+            if (DefaultDuration is Duration defaultDuration)
+                animation.Duration = defaultDuration;
+            if (DefaultEasingFunction is IEasingFunction defaultEasingFunction)
+                animation.EasingFunction = defaultEasingFunction;
 
             if (isAdditive is bool _isAdditive)
                 animation.IsAdditive = _isAdditive;
@@ -284,7 +317,10 @@ public partial class FluentAnimator<TElement>
                 animation.By = _by;
 
             // defaults:
-            animation.EasingFunction = DefaultEasingFunction;
+            if (DefaultDuration is Duration defaultDuration)
+                animation.Duration = defaultDuration;
+            if (DefaultEasingFunction is IEasingFunction defaultEasingFunction)
+                animation.EasingFunction = defaultEasingFunction;
 
             if (isAdditive is bool _isAdditive)
                 animation.IsAdditive = _isAdditive;
@@ -307,7 +343,10 @@ public partial class FluentAnimator<TElement>
                 animation.By = _by;
 
             // defaults:
-            animation.EasingFunction = DefaultEasingFunction;
+            if (DefaultDuration is Duration defaultDuration)
+                animation.Duration = defaultDuration;
+            if (DefaultEasingFunction is IEasingFunction defaultEasingFunction)
+                animation.EasingFunction = defaultEasingFunction;
 
             if (isAdditive is bool _isAdditive)
                 animation.IsAdditive = _isAdditive;
@@ -330,7 +369,10 @@ public partial class FluentAnimator<TElement>
                 animation.By = _by;
 
             // defaults:
-            animation.EasingFunction = DefaultEasingFunction;
+            if (DefaultDuration is Duration defaultDuration)
+                animation.Duration = defaultDuration;
+            if (DefaultEasingFunction is IEasingFunction defaultEasingFunction)
+                animation.EasingFunction = defaultEasingFunction;
 
             if (isAdditive is bool _isAdditive)
                 animation.IsAdditive = _isAdditive;
@@ -353,7 +395,10 @@ public partial class FluentAnimator<TElement>
                 animation.By = _by;
 
             // defaults:
-            animation.EasingFunction = DefaultEasingFunction;
+            if (DefaultDuration is Duration defaultDuration)
+                animation.Duration = defaultDuration;
+            if (DefaultEasingFunction is IEasingFunction defaultEasingFunction)
+                animation.EasingFunction = defaultEasingFunction;
 
             if (isAdditive is bool _isAdditive)
                 animation.IsAdditive = _isAdditive;
@@ -376,7 +421,10 @@ public partial class FluentAnimator<TElement>
                 animation.By = _by;
 
             // defaults:
-            animation.EasingFunction = DefaultEasingFunction;
+            if (DefaultDuration is Duration defaultDuration)
+                animation.Duration = defaultDuration;
+            if (DefaultEasingFunction is IEasingFunction defaultEasingFunction)
+                animation.EasingFunction = defaultEasingFunction;
 
             if (isAdditive is bool _isAdditive)
                 animation.IsAdditive = _isAdditive;
@@ -399,7 +447,10 @@ public partial class FluentAnimator<TElement>
                 animation.By = _by;
 
             // defaults:
-            animation.EasingFunction = DefaultEasingFunction;
+            if (DefaultDuration is Duration defaultDuration)
+                animation.Duration = defaultDuration;
+            if (DefaultEasingFunction is IEasingFunction defaultEasingFunction)
+                animation.EasingFunction = defaultEasingFunction;
 
             if (isAdditive is bool _isAdditive)
                 animation.IsAdditive = _isAdditive;

@@ -5,7 +5,26 @@
     <UseWPF>true</UseWPF>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <Title>Fluent APIs for WPF Animations</Title>
+    <Authors>EleCho</Authors>
+    <Description>Many Fluent APIs provided for WPF to help developers quickly and easily animate elements in C#.</Description>
+    <PackageProjectUrl></PackageProjectUrl>
+    <PackageIcon>logo.png</PackageIcon>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <RepositoryUrl>https://github.com/OrgEleCho/EleCho.FluentAnimation</RepositoryUrl>
+    <PackageTags>WPF, Animation</PackageTags>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\logo.png">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+    <None Include="..\README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\EleCho.FluentAnimation.Wpf.SourceGen\EleCho.FluentAnimation.Wpf.SourceGen.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
